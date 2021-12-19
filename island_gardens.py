@@ -18,10 +18,14 @@ YHEIGHTS = {
 X = 800
 Y = 400
 
+# give a cooldown time of half a second - 500ms
+COOLDOWN = 3000
+
 # activate the pygame library
 # initiate pygame and give permission
 # to use pygame's functionality.
 pygame.init()
+last = pygame.time.get_ticks()
 
 # define the RGB value for white,
 # green, blue colour .
@@ -48,17 +52,18 @@ platform_2_timing_2 = ""
 ####### 
 # Web requests stuff
 #######
-# Hide me when being shown to the outside world
+# Hide api_key.json when being shown to the outside world
 
 with open('api_key.json') as file:
     data = json.load(file)
 params = data
 
+
 while True:
 
 	# NOTE: api.tfl is current, api.digital.tfl is LEGACY
 	response_isl = requests.get("https://api.tfl.gov.uk/StopPoint/940GZZDLISL/Arrivals", params=params)
-	print(response_isl.status_code)
+	# print(response_isl.status_code)
 	response_isl_json = response_isl.json()
 	response_isl_js = sorted(response_isl_json, key=lambda d: (d['platformName'], d['timeToStation']))
 	# counter = 0
@@ -97,6 +102,18 @@ while True:
 			plat_2_ctr += 1
 			print(platform_2_dest_str, platform_2_timing_2)
 
+
+	# iterate over the list of Event objects
+	# that was returned by pygame.event.get() method.
+	for event in pygame.event.get():
+
+		if event.type == pygame.QUIT:
+			# deactivates the pygame library
+			pygame.quit()
+			# quit the program.
+			quit()
+
+
 	# create a text surface object,
 	# on which text is drawn on it.
 	title_text =  font.render('Island Gardens DLR', True, yellowish)
@@ -121,7 +138,6 @@ while True:
 	platform_2_timing_1_rect = platform_2_timing_1_text.get_rect()
 	platform_2_timing_2_rect = platform_1_timing_2_text.get_rect()
 
-
 	# create the display surface object
 	# of specific dimension..e(X, Y).
 	display_surface = pygame.display.set_mode((X, Y))
@@ -130,11 +146,8 @@ while True:
 	# set the pygame window name
 	pygame.display.set_caption('piTFL Board')
 
-
 	# set the center of the rectangular object.
 	title_rect.center = (X / 2, YHEIGHTS['title'])
-
-
 
 	platform_1_rect.center = (X / 2, YHEIGHTS['plat 1 title'])
 	platform_1_dest_1_rect.left = 20
@@ -179,19 +192,9 @@ while True:
 	display_surface.blit(platform_2_dest_1_text, platform_2_dest_2_rect)
 	display_surface.blit(platform_2_timing_2_text, platform_2_timing_2_rect)
 
-
-	# iterate over the list of Event objects
-	# that was returned by pygame.event.get() method.
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			# deactivates the pygame library
-			pygame.quit()
-			# quit the program.
-			quit()
-
-		# Draws the surface object to the screen.
-		pygame.display.flip()
-		pygame.time.wait(3000)
+	# Draws the surface object to the screen.
+	pygame.display.update()
+	pygame.time.wait(10000)
 
 
 
