@@ -25,7 +25,6 @@ COOLDOWN = 3000
 # initiate pygame and give permission
 # to use pygame's functionality.
 pygame.init()
-last = pygame.time.get_ticks()
 
 # define the RGB value for white,
 # green, blue colour .
@@ -62,19 +61,19 @@ params = data
 while True:
 
 	# NOTE: api.tfl is current, api.digital.tfl is LEGACY
-	response_isl = requests.get("https://api.tfl.gov.uk/StopPoint/940GZZDLISL/Arrivals", params=params)
-	# print(response_isl.status_code)
-	response_isl_json = response_isl.json()
-	response_isl_js = sorted(response_isl_json, key=lambda d: (d['platformName'], d['timeToStation']))
+	response_mht = requests.get("https://api.tfl.gov.uk/StopPoint/940GZZDLISL/Arrivals", params=params)
+	# print(response_mht.status_code)
+	response_mht_json = response_mht.json()
+	response_mht_js = sorted(response_mht_json, key=lambda d: (d['platformName'], d['timeToStation']))
 	# counter = 0
 	plat_1_ctr = 0
 	plat_2_ctr = 0
-	print(f"{len(response_isl_js)} elements")
-	for i in range(len(response_isl_js)):
-		element = response_isl_js[i]
+	print(f"{len(response_mht_js)} elements")
+	for i in range(len(response_mht_js)):
+		element = response_mht_js[i]
 		element_dict = dict(element)
 		# Dunno what for do
-		if len(response_isl_json) == 0:
+		if len(response_mht_json) == 0:
 			break
 		# We got all we need
 		if i > 4:
