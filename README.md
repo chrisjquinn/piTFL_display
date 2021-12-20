@@ -3,8 +3,11 @@
 ## About
 This replicates the black and yellow LED signs you see on stations and their platforms for the next few trains arriving. The piTFL display renders this using the [TFL API](https://api.tfl.gov.uk) and renders this with [pyGame](https://www.pygame.org/news). 
 
+**For your average tube station:**
+![piTFL Tube Display Board](./media/island_gardens.png)
 
-![piTFL Board](./media/island_gardens.png)
+**For a boat pier**
+![piTFL River-Bus Display Board](./media/masthouse_terrace.png)
 
 
 ## Pros
