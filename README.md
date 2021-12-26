@@ -6,7 +6,7 @@ This replicates the black and yellow LED signs you see on stations and their pla
 **For your average tube station:**
 ![piTFL Tube Display Board](./media/island_gardens.png)
 
-**For a boat pier**
+**For a boat pier:**
 ![piTFL River-Bus Display Board](./media/masthouse_terrace.png)
 
 
@@ -16,5 +16,6 @@ This replicates the black and yellow LED signs you see on stations and their pla
 
 ## Cons
  - Waiting done with `pygame.time.wait()` which sleeps the program.
- - Abstraction and class creation needed for other types of stations, piers and bus stops
+ - Abstraction and class creation needed for other types of stations, piers and bus stops. 
  - lots of variable assignment which can be reduced ..... somehow.
+ - All of the text elements are statically coded into the window and not responsive to window changes. 
